@@ -215,3 +215,203 @@ DROP COLUMN SALARY;
 for edit datatype or datatype size:
 ALTER TABLE EMPLOYEES
 MODIFY COLUMN SALARY INT (10)
+
+Subquery: 
+SOME Example OF BASIC Subquery,
+-------------------------------
+-- SHOW ALL DETAILS who got less salary from employee_id 144
+SELECT *
+FROM EMPLOYEES
+WHERE SALARY < (SELECT SALARY
+		FROM EMPLOYEES
+		WHERE EMPLOYEE_ID = 144);
+--------------------------------------------------------------
+-- who got highest ?
+SELECT *
+FROM EMPLOYEES
+WHERE SALARY = (SELECT MAX(SALARY)
+				FROM EMPLOYEES);
+--------------------------------------------------------------
+-- WHO WORKS IN MARKETING DEPARTMENT?
+SELECT *
+FROM EMPLOYEES
+WHERE DEPARTMENT_ID = (SELECT DEPARTMENT_ID
+						FROM DEPARTMENTS
+						WHERE DEPARTMENT_NAME = 'MARKETING'
+					  );
+--------------------------------------------------------------
+-- WHO WORKS IN MARKETING DP THEIR AVG. SALARY?
+SELECT COUNT(*) AS MEMBERS
+FROM EMPLOYEES
+WHERE DEPARTMENT_ID = (SELECT DEPARTMENT_ID
+						FROM DEPARTMENTS
+						WHERE DEPARTMENT_NAME = 'IT'
+					  );
+--------------------------------------------------------------
+-- TOTAL SALARY FOR PROGRAMMER IN OFFICE?
+SELECT SUM(SALARY)
+FROM EMPLOYEES
+WHERE JOB_ID = (SELECT JOB_ID
+				FROM JOBS
+                WHERE JOB_TITLE = 'Programmer');
+--------------------------------------------------------------
+ADVANCE Subquery:
+SOME Example OF ADVANCE Subquery,
+
+-- who get the second highst salary and how much?
+SELECT *
+FROM EMPLOYEES
+WHERE SALARY = (SELECT MAX(SALARY)
+				FROM EMPLOYEES
+				WHERE SALARY < (SELECT MAX(SALARY)
+								FROM EMPLOYEES
+								)                                
+				);
+--------------------------------------------------------------
+-- who get the salary more than manager and how much?
+SELECT *
+FROM EMPLOYEES AS EMP
+WHERE SALARY > (
+				SELECT SALARY
+				FROM EMPLOYEES AS MNG
+                WHERE EMP.MANAGER_ID = MNG.EMPLOYEE_ID
+                );
+--------------------------------------------------------------
+-- which people has same job_id as like manager job_id
+SELECT *
+FROM EMPLOYEES AS EMP
+WHERE JOB_ID =  (
+				SELECT JOB_ID
+				FROM EMPLOYEES AS MNG
+                WHERE EMP.MANAGER_ID = MNG.EMPLOYEE_ID
+                );
+--------------------------------------------------------------         
+Common Table Expression: CTE ->
+(WITH, AS)
+
+WITH TEMP AS 
+(
+    SELECT *
+    FROM EMPLOYEES
+    LIMIT 5
+)    
+SELECT *
+FROM TEMP
+-----------------------------------------------------------------
+WITH AVGIT AS
+(
+	SELECT AVG(SALARY) AS SL1
+	FROM EMPLOYEES
+	WHERE DEPARTMENT_ID = 60 -- IT
+),
+MAXMKT AS
+(
+	SELECT MAX(SALARY) AS SL2
+	FROM EMPLOYEES
+	WHERE DEPARTMENT_ID = 20 -- MARKETING
+)
+
+
+SELECT *
+FROM EMPLOYEES
+WHERE SALARY > (SELECT SL1 FROM AVGIT) AND SALARY < (SELECT SL2 FROM MAXMKT)
+-----------------------------------------------------------------------------
+Practice problem:
+----------------
+-- Determine the third highest salary and which employee receives it?
+
+-- 3rd highest salary
+SELECT MAX(SALARY)
+FROM EMPLOYEES
+WHERE SALARY < (
+				SELECT MAX(SALARY)
+				FROM EMPLOYEES
+				WHERE SALARY < (
+								SELECT MAX(SALARY)
+								FROM EMPLOYEES
+							   )
+				);
+
+-- who got it
+SELECT *
+FROM EMPLOYEES
+WHERE SALARY = (SELECT MAX(SALARY)
+				FROM EMPLOYEES
+				WHERE SALARY < (
+								SELECT MAX(SALARY)
+								FROM EMPLOYEES
+								WHERE SALARY < (
+												SELECT MAX(SALARY)
+												FROM EMPLOYEES
+											   )
+								)
+				);
+-----------------------------------------------------------------------------
+-- Determine the third lowest salary and which employee receives it?
+
+-- 3rd lowest --
+SELECT MIN(SALARY)
+FROM EMPLOYEES
+WHERE SALARY > (
+				(
+					SELECT MIN(SALARY)
+					FROM EMPLOYEES
+					WHERE SALARY > (
+									SELECT MIN(SALARY)
+									FROM EMPLOYEES
+								   )
+				)
+			   );
+-- who got --
+SELECT *
+FROM EMPLOYEES
+WHERE SALARY = (
+				SELECT MIN(SALARY)
+				FROM EMPLOYEES
+				WHERE SALARY > (
+								(SELECT MIN(SALARY)
+									FROM EMPLOYEES
+									WHERE SALARY > (SELECT MIN(SALARY)
+													FROM EMPLOYEES)
+                                                    )
+							  )
+				);
+---------------------------------------------------------------------------------------------------
+-- With common table expression solve the question 1 and 2
+WITH MAX3 AS(
+            SELECT MAX(SALARY) AS MAX1
+			FROM EMPLOYEES
+			WHERE SALARY < (
+							SELECT MAX(SALARY)
+							FROM EMPLOYEES
+						   )
+            )
+SELECT MAX(SALARY)
+FROM EMPLOYEES
+WHERE SALARY < (
+				SELECT MAX1 FROM MAX3
+			    );
+-- who got it
+
+WITH MAXP AS(
+                (SELECT MAX(SALARY) AS PMX1
+                FROM EMPLOYEES
+                WHERE SALARY < (
+                                SELECT MAX(SALARY)
+                                FROM EMPLOYEES
+                                WHERE SALARY < (
+                                                SELECT MAX(SALARY)
+                                                FROM EMPLOYEES
+                                                )
+                                )
+                )
+            )
+SELECT *
+FROM EMPLOYEES
+WHERE SALARY = (SELECT PMX1 FROM MAXP);
+                
+                
+                
+                
+                
+                
