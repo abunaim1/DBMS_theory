@@ -1,0 +1,217 @@
+Query:
+-> something finding from a database
+-> 5 Types of Query:
+1. select Query - Roll(102) ->Student-> Naim
+2. parameter Query - Roll-102
+3. crosstab Query - take information like summery or group from a database
+4. unmatched Query - not match type data. 
+5. action Query - delete, update, something like action.
+
+Types of action Query:
+1. make table 
+2. append
+3. update
+4. delete 
+-------------------------------------------------------------------------------------
+
+Types of Query Language:
+1. QUEL - Query Language
+2. QBE - Query By Example
+3. SQL - Structured Query Language
+
+SQL - Structured Query Language
+Types of SQL:
+1. DML - data manupulation (important)
+2. DDL - data defination (important)
+3. DCL - data control
+4. DTL - data transiction
+
+DML: (operation with Data Manupulation Language):
+Select - taking data from table and showing it 
+Insert - data Insert 
+Update - data update 
+Delete - data delete
+
+DDL: (operation with Data Defination Language):
+Create - creating a table
+Append - full new column added  
+Drop - full table delete
+-------------------------------------------------------------------------------------
+SQL vs MySQL
+
+SQL - Structured Query Language, this is a Language as like others programming Language(c, c++, python)
+MySQL - It is a database, A Relational database--> Where we use SQL Query.
+
+-------------------------------------------------------------------------------------
+Data type of MySQL: https://www.w3schools.com/mysql/mysql_datatypes.asp
+1. Numaric - INT, FLOAT, DOUBLE, DECIMAL
+2. String - CHAR(4) - 'abcd' and VARCHAR(5) - 'a', 'ab', 'abc', 'abcd', 'abcde'
+3. Date Time - DATE, TIME, DATETIME
+4. Boolean - BOOL, BOOLEAN
+5. Binary - BINARY(10000) Binary data (file save) 
+6. Set - SET()
+7. BIT type - BIT(5) - 00001
+8. BLOB
+9. TEXT
+-------------------------------------------------------------------------------------
+Some operation of database: Create, Insert, Update, Delete, Drop.
+
+Create - creating table
+Insert - entry data into an existing table
+Update - changing data of an existing table
+Delete - delete data from a existing table
+Drop - delete a table complately 
+-------------------------------------------------------------------------------------
+Constrains: - Rules (নিয়ম)
+PRIMARY KEY
+FOREIGN KEY
+UNIQUE
+CHECK
+DEAFULT
+NOT NULL
+-------------------------------------------------------------------------------------
+SLECT - 
+FROM - 
+WHERE - 
+-------------------------------------------------------------------------------------
+Arithmetic Operator
+Comparisn Operator
+Logical Operator
+
+DISTINCT - আলাদা 
+
+SELECT DISTINCT designation 
+from employee
+
+Syentax Sequnece:
+SELECT
+FROM
+WHERE
+ORDER BY - asscending, descending
+LIMIT - 
+OFFSET 
+
+SELECT Name
+FROM employee
+ORDER By age ASC;
+
+SELECT Name
+FROM employee
+ORDER By age DESC;
+
+SELECT ---
+FROM -- 
+WHERE --
+LIMIT 10
+OFFSET 59
+
+or,
+
+SELECT ---
+FROM -- 
+WHERE --
+LIMIT 59, 10
+
+IN, NOT IN, LIKE, AS
+
+IN:
+WHERE Roll IN (102, 103, 104)
+
+NOT IN
+WHERE Roll NOT IN (102, 103, 104)
+
+LIKE:
+WHERE Name LIKE 'Rahim %'
+
+AS: 
+SELECT Name AS t
+SELECT FIRST_NAME AS NAME, SALARY AS 'CURRENT SALARY', SALARY+1000 AS INREASED_SALARY
+FROM EMPLOYEES;
+----------------------------------------------------------------------------------------
+
+Functions:
+UPPER -> UPPER('abc') 
+SELECT UPPER(FIRST_NAME)
+FROM EMPLOYEES;
+
+LOWER -> LOWER('AbC')
+ABS -> ABS(-2) = 2
+
+DEGREES (3) = degree function takes radian value
+RADIANS (90) = radian function takes degree value
+
+COS (RADIANS(90)) = 0
+trigonometery function always take radian value.
+ACOS = this is cos inverse
+SIN
+ASIN
+TAN
+ATAN
+MySQL system works with radian system. 
+
+CEIL -> CEIL(2.5) = 3
+FLOOR -> FLOOR(2.5) = 2
+DIV -> (divition) 10 DIV 2 = 5
+EXP = using for exponential values
+
+GREATEST(2,4,9,1) = 9
+LEAST (3,1,0,4) = 0
+
+LN = logarithm e base
+LOG = logarithm
+LOG10 = logarithm 10 base
+LOG2 = logarithm 2 base
+
+MOD = 5%2 = 1 (ভাগশেষ)
+PI() = 3.1416
+POW (2,5) = 2 to the power 5
+RAND() = 0-1 ---> SELECT RAND()
+ROUND(12.656, 2) = 12.66 ---> SELECT ROUND(12.656, 2)
+ROUND(12.633, 2) = 12.63
+SQRT = square root
+TRUNCATE(12.567) = 12.56
+------------------------------------------------------------------------------------------------------
+
+Group Functions:
+MAX, MIN, COUNT, SUM, AVG
+Group By -> Group according to something : 
+
+maximum salary for every group:
+SELECT DEPARTMENT_ID, MAX(SALARY)
+FROM EMPLOYEES
+GROUP BY DEPARTMENT_ID 
+
+counting row:
+SELECT DEPARTMENT_ID, COUNT(*)
+FROM EMPLOYEES
+GROUP BY DEPARTMENT_ID;
+
+HAVING - applied condition on group group function.
+
+SELECT DEPARTMENT_ID, MAX(SALARY)
+FROM EMPLOYEES
+GROUP BY DEPARTMENT_ID
+HAVING MAX(SALARY) > 1000
+
+OR,
+
+SELECT DEPARTMENT_ID, MAX(SALARY) AS sal
+FROM EMPLOYEES
+GROUP BY DEPARTMENT_ID
+HAVING sal > 1000
+
+ALTER TABLE Query: this is use for changing the structural change of a table.  
+UPDATE, DELETE কাজ করে টেবিল এর ডাটা গুলোর উপর;
+ALTER, DROP কাজ করে টেবিল এর স্ট্রাকচার এর উপর;
+
+for add column:
+ALTER TABLE EMPLOYEES
+ADD COLUMN EMAIL VARCHAR(50);
+
+for remove a column:
+ALTER TABLE EMPLOYEES
+DROP COLUMN SALARY;
+
+for edit datatype or datatype size:
+ALTER TABLE EMPLOYEES
+MODIFY COLUMN SALARY INT (10)

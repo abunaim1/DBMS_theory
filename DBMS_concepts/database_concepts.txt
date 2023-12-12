@@ -1,0 +1,103 @@
+Data    information
+----    -----------
+Naim     organized
+102
+
+#A organized data is called information.
+
+information(data with organized):
+    Name - Naim
+    Roll - 102
+data(just data, no organized):
+    Naim
+    102
+----------------------------------------------------------------------------------------------------
+Database - A database is the system of 'keep', 'manage' and 'retrieve' the data.
+Types of database:
+1. Relational database (important)
+2. Non-Relational database (important)
+3. Graph database
+4. Centralized database -- facebook messege
+5. Cloud database -- google drive
+6. Distributed database -- Amazon distributed their according to the region. 
+and so on...
+----------------------------------------------------------------------------------------------------
+Relational database: 
+  Student            library
+Name    Roll       b_name Roll
+Naim    102        xyz     102
+Fahad   104        abc     102
+Amit    105        pqr     104
+Connection between Student and library is the Relational database. here Connection with Roll number.
+----------------------------------------------------------------------------------------------------
+Non Relational database:
+No Connection between between two table.
+----------------------------------------------------------------------------------------------------
+Some Keyword:
+MySQL - it is a Relational database system
+Table - Data saved with a table
+Example:        
+        Student
+Name  Roll  Phone   Address
+----  ----  -----   -------
+Naim  102   017..   Barishal
+Fahad 103   018..   Cumilla
+Amit  201   019..   Dhaka
+Fahad 205   013..   Jinaydah
+
+Field: Every 'column-name' is called 'Field' : Name, Roll, Phone, Address is the Field
+Record: Every full row is called 'Record' : (Naim - 102 - 017.. - Barishal) total is the Record
+Value: Every single data is called the 'Value' : amit, Fahad, 102, 103, Dhaka, Cumilla is the Value.
+----------------------------------------------------------------------------------------------------
+DBMS: Database Management System
+RDBMS: Relational Database Management System
+here, System(Softwere)
+DBMS
+----
+data - information (organized) 
+user - We are
+hardwere - computer, pendrive, dvd
+softwere - 
+processing unit - calculation
+
+DBMS - Advantage:  
+->organized: keep, manage, retrieve
+->fast access
+->parallel accessing: sobar messege ek sathei ashe facebook group e.
+----------------------------------------------------------------------------------------------------
+Key:
+according to the table if i want a Phone number of Fahad we can get it. here with the name 'Fahad' we get the Phone number '018..' so the 'name-Fahad' is the key.
+
+Primary Key:
+But in this table '2 Fahad is there' so we want a uniqe key that is 'Roll number' if we say '103' we will get '018..' again if we say '205' we will get '013...' so here the 'Roll-number' is 'Primary key'.
+
+**So, The Primary key is always a uniqe 'Field'.
+
+Types of key:
+1. Primary Key - uniqe Field
+
+2. Composite Key - more than one Field to get a uniqe indentification.
+
+              Course
+Course_name   University_name  Credit
+CSE 101         BRAC             3
+CSE 102         UIU              4
+CSE 101         UIU              3
+
+(CSE 101, BRAC) - Composite Primary key
+(CSE 101, UIU) - Composite Primary key
+
+3. Foreign Key -  
+  Student            library
+Name    Roll       b_name   Roll <--- Foreign key (we got from 'another table' Student)
+Naim    102        xyz      102
+Fahad   104        abc      104
+Rahim   105        pqr      105
+In this Example the table library we use a column 'Roll', that is from another table 'Student'. so, in library table the 'Roll-Field' is a 'Foreign key'. But in Student table the 'Roll-Field' is a 'Primary key'. 
+
+'Both table made a relation between them'
+Types of relation:
+1. One to One 
+2. One to Many
+3. Many to Many
+---------------------------------------------------------------------------------------------------- 
