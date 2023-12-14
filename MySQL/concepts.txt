@@ -13,7 +13,6 @@ Types of action Query:
 3. update
 4. delete 
 -------------------------------------------------------------------------------------
-
 Types of Query Language:
 1. QUEL - Query Language
 2. QBE - Query By Example
@@ -83,7 +82,7 @@ DISTINCT - আলাদা
 SELECT DISTINCT designation 
 from employee
 
-Syentax Sequnece:
+Syntax Sequnece:
 SELECT
 FROM
 WHERE
@@ -311,13 +310,12 @@ MAXMKT AS
 	WHERE DEPARTMENT_ID = 20 -- MARKETING
 )
 
-
 SELECT *
 FROM EMPLOYEES
 WHERE SALARY > (SELECT SL1 FROM AVGIT) AND SALARY < (SELECT SL2 FROM MAXMKT)
 -----------------------------------------------------------------------------
-Practice problem:
-----------------
+Practice problem 1:
+------------------
 -- Determine the third highest salary and which employee receives it?
 
 -- 3rd highest salary
@@ -377,7 +375,8 @@ WHERE SALARY = (
 							  )
 				);
 ---------------------------------------------------------------------------------------------------
--- With common table expression solve the question 1 and 2
+-- With common table expression solve the question 1
+
 WITH MAX3 AS(
             SELECT MAX(SALARY) AS MAX1
 			FROM EMPLOYEES
@@ -391,8 +390,7 @@ FROM EMPLOYEES
 WHERE SALARY < (
 				SELECT MAX1 FROM MAX3
 			    );
--- who got it
-
+-- who got it --
 WITH MAXP AS(
                 (SELECT MAX(SALARY) AS PMX1
                 FROM EMPLOYEES
@@ -408,10 +406,66 @@ WITH MAXP AS(
             )
 SELECT *
 FROM EMPLOYEES
-WHERE SALARY = (SELECT PMX1 FROM MAXP);
-                
-                
-                
-                
-                
-                
+WHERE SALARY = (SELECT PMX1 FROM MAXP);----------------------------------------------------------------------------------------------------       
+-- Which employee has been hired after Steven?
+SELECT FIRST_NAME, SALARY
+FROM EMPLOYEES
+WHERE HIRE_DATE = (
+					SELECT MIN(HIRE_DATE)
+					FROM EMPLOYEES
+					WHERE HIRE_DATE>(
+										SELECT MIN(HIRE_DATE)
+										FROM EMPLOYEES
+										WHERE FIRST_NAME = 'STEVEN'
+									)
+				  );
+---------------------------------------------------------------------------------------------------- 
+Joining Table:
+--------------
+Without JOIN Syntax:
+--------------------
+SELECT EMPLOYEES.FIRST_NAME, DEPARTMENTS.DEPARTMENT_NAME
+FROM DEPARTMENTS, EMPLOYEES
+WHERE EMPLOYEES.DEPARTMENT_ID = DEPARTMENTS.DEPARTMENT_ID
+
+with JOIN Syntax:
+----------------
+SELECT EMPLOYEES.FIRST_NAME, DEPARTMENTS.DEPARTMENT_NAME
+FROM EMPLOYEES
+	JOIN DEPARTMENTS ON EMPLOYEES.DEPARTMENT_ID = DEPARTMENTS.DEPARTMENT_ID;
+
+OR,
+
+SELECT EMPLOYEES.FIRST_NAME, DEPARTMENTS.DEPARTMENT_NAME
+FROM EMPLOYEES
+	JOIN DEPARTMENTS USING(DEPARTMENT_ID);
+----------------------------------------------------------------------------------------------------
+INNER JOIN: the common elemect from both table.
+LEFT JOIN: common things + uncommon things in the left table 
+RIGHT JOIN: common things + uncommon things in the right table
+CROSS JOIN: both table common or uncommon
+
+SELF JOIN:
+---------
+-- employee with their manager name:
+SELECT m.FIRST_NAME, e.FIRST_NAME
+FROM EMPLOYEES AS e
+				JOIN EMPLOYEES AS m
+                ON e.EMPLOYEE_ID = m.MANAGER_ID;
+
+-- SHOW THOSE DEPARTMENT_NAME THOS DEPARTMENT HAS NO EMPLOYEES
+SELECT DEPARTMENTS.DEPARTMENT_NAME
+FROM DEPARTMENTS
+	LEFT JOIN EMPLOYEES
+    ON DEPARTMENTS.DEPARTMENT_ID = EMPLOYEES.DEPARTMENT_ID
+WHERE EMPLOYEES.DEPARTMENT_ID IS NULL
+
+-- SHOW A EMPLOYE FIRST NAME WITH THE SALARY AND HOW MUCH LESS SALARY GET COMPARED TO HIS DEPARTMENT'S AVG SALARY 
+SELECT EMPLOYEES.FIRST_NAME,
+		EMPLOYEES.SALARY,
+        ((SELECT AVG(SALARY) FROM EMPLOYEES WHERE department_id = EMPLOYEES.department_id) - EMPLOYEES.SALARY) AS LAVG
+FROM EMPLOYEES
+	JOIN DEPARTMENTS
+    ON EMPLOYEES.department_id = DEPARTMENTS.department_id
+
+    
