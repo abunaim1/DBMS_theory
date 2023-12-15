@@ -468,4 +468,84 @@ FROM EMPLOYEES
 	JOIN DEPARTMENTS
     ON EMPLOYEES.department_id = DEPARTMENTS.department_id
 
-    
+Foreign Key ON DELETE Operation:
+-------------------------------
+ON DELETE CASCADE (If i delete a data from table this line will help to delete it from its Foreign column)
+or
+ON DELETE SET NULL (If i delete a data from table this line will help to delete it from its Foreign column and set NULL)
+
+FOREIGN KEY(ROLL) REFERENCES student (ROLL)
+ON DELETE CASCADE
+
+or
+
+FOREIGN KEY(ROLL) REFERENCES student (Roll)
+DELETE ON SET NULL
+
+Set Operation:
+-------------
+4 types:
+A = {1,3,4,5,3,1,7}
+B = {2,1,3,2,9}
+UNION: A UNION B : {1,3,4,5,7,2,9}
+UNION ALL: A UNION ALL B : {1,3,4,5,3,1,7,2,1,3,2,9}
+INTERSECTION: A INTERSECTION B: {1,3}
+MINUS: A MINUS B: {4,5,7}
+
+SELECT *
+FROM EMPLOYEES
+WHERE SALARY > 10000
+UNION 
+SELECT *
+FROM EMPLOYEES
+WHERE EMPLOYEE_ID = 100
+
+(SELECT *
+FROM EMPLOYEES
+WHERE SALARY > 10000) 
+INTERSECT 
+(SELECT *
+FROM EMPLOYEES
+WHERE EMPLOYEE_ID = 100)
+----------------------------------------------------------------------------------------------
+Dtabase design strategies:
+-------------------------
+1. Top down: Model -> Data (Not existing system)
+2. Bottom Up: Data -> Model (existing already) 
+
+Requirement Analysis: for designing a database firsly need to analyse the requirement. 
+
+What to avoid:
+1. Redundancy
+2. Incompleteness
+
+How to Model a database:
+------------------------
+ER diagram -> Entity Relationship diagram (ERD)
+Entity means table of database. Student table is Entity.
+
+ERD notation: picture 
+
+Weak Entity and Strong Entity: Weak Entity has no solid existance but Strong has. For example Student and exam, Without student exam has no value so exam is a Weak Entity but Without exam student has own existance so student is a Strong Entity.
+
+ERD attributes:
+---------------
+1. composite, example: name -> first_name + last_name, address -> present_add + parmanent_add
+2. multivalued, example: a student has 'more than one' phone number.-> {phone}
+3. derived, example: 'age' derived from date of birth.-> age()
+
+ERD Genaralization and Specialization:
+-------------------------------------
+School -> Student, Teacher, Staff
+(Student+Teacher+Staff) -> Person (Genaralization)
+(Teacher+Staff) -> Employee (Genaralization)
+
+Person -> Student, Teacher, Staff (Specialization)
+Employee -> Teacher, Staff (Specialization)
+
+so, Specialization is the opposite of Genaralization.
+
+Example:
+
+
+
