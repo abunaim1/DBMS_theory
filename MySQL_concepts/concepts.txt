@@ -545,7 +545,41 @@ Employee -> Teacher, Staff (Specialization)
 
 so, Specialization is the opposite of Genaralization.
 
-Example:
+Example:pictures
+
+
+Future to do.
+-------------
+Query Practice (leetcode)
+ERD Practice
+Procedure, function, trigger
+MySQL - website
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
